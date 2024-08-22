@@ -70,7 +70,7 @@ Arguments:
 1. `context` (`cmd.Context`): See: [context.lua](https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/context.lua) in [nvim-cmp].  
    you can get `bufnr`, `filetype` ...etc.
 2. `completion_type` (`string`): See: `:help getcompletion()`
-3. `custom_function` (`string`): when the completion type is `custom` or `customlist`
+3. `custom_function` (`string`): function name will be supplied when the completion type is `custom` or `customlist`.
 
 ### Appearance
 
