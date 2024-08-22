@@ -72,4 +72,53 @@ Arguments:
 2. `completion_type` (`string`): See: `:help getcompletion()`
 3. `custom_function` (`string`): when the completion type is `custom` or `customlist`
 
+### Appearance
+
+By default, all completion items are set as `Text` kind.
+You can change by defining `option.kinds`, and also define a different highlight group than the `kind`.
+
+Additionaly, can be shown using [lspkind].
+
+```lua
+local lspkind = require('lspkind')
+
+cmp.setup.cmdline('@', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        {
+            name = 'cmdline-prompt',
+            ---@type prompt.Option
+            option = {
+                kinds = {
+                    file = cmp.lsp.CompletionItemKind.File,
+                    dir  = {
+                        kind = cmp.lsp.CompletionItemKind.Folder,
+                        hl_group = 'CmpItemKindEnum'
+                    },
+                }
+            }
+        },
+    }),
+    formatting = {
+        fields = { 'kind', 'abbr', 'menu' },
+        format = function(entry, vim_item)
+            local item = entry:get_completion_item()
+            if entry.source.name == 'cmdline-prompt' then
+                vim_item.kind = cmp.lsp.CompletionItemKind[item.kind]
+                local kind = lspkind.cmp_format({ mode = 'symbol_text' })(entry, vim_item)
+                local strings = vim.split(kind.kind, '%s', { trimempty = true })
+                kind.kind = ' ' .. (strings[1] or '')
+                kind.menu = ' (' .. (item.data.completion_type or '') .. ')'
+                kind.menu_hl_group = kind.kind_hl_group
+                return kind
+            else
+                return vim_item
+            end
+        end
+    },
+})
+```
+
+
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp "hrsh7th/nvim-cmp: A completion plugin for neovim coded in Lua."
+[lspkind]: https://github.com/onsails/lspkind.nvim "onsails/lspkind.nvim: vscode-like pictograms for neovim lsp completion items"
