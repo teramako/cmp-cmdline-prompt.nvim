@@ -52,6 +52,10 @@ source.new = function ()
     return setmetatable({}, { __index = source })
 end
 
+source.get_keyword_pattern = function()
+    return [=[[^[:blank:]]*]=]
+end
+
 ---cmp.Context
 ---
 ---See nvim-cmp: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/context.lua
