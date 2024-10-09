@@ -97,6 +97,10 @@ end
 source.complete = function(_, params, callback)
     local cmdline = params.context.cursor_line
     local compl_type = vim.fn.getcmdcompltype()
+    if compl_type == '' then
+        callback(nil)
+        return
+    end
 
     local custom_function = ''
     local completion_type = compl_type
