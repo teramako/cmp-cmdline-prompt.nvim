@@ -1,4 +1,5 @@
 # cmp-cmdline-prompt.nvim
+
 [nvim-cmp] source for Neovim's command line `input()` prompt.
 
 ## Sample settings
@@ -8,7 +9,7 @@ local cmp = require('cmp')
 
 -- for cmdline `input()` prompt
 -- see: `:help getcmdtype()`
-cmp.cmdline.setup('@', {
+cmp.setup.cmdline('@', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = 'cmdline-prompt' },
@@ -18,18 +19,18 @@ cmp.cmdline.setup('@', {
     },
     window = {
         completion = {
-            -- "prompt: " Adjust to the number of the prompt charaters 
+            -- "prompt: " Adjust to the number of the prompt charaters
             -- Can't get prompt length as far as I know :(
             col_offset = 8,
         },
-    },
+    })
 })
 ```
 
 ### Exclude specific completions
 
 ```lua
-cmp.cmdline.setup('@', {
+cmp.setup.cmdline('@', {
     sources = cmp.config.sources({
         {
             name = 'cmdline-prompt',
@@ -39,12 +40,13 @@ cmp.cmdline.setup('@', {
                 excludes = { 'file', 'dir' }, -- complete with 'hrsh7th/cmp-path' instead of 'cmdline-prompt'
             }
         },
-        { namae = 'path' },
-    },
+        { name = 'path' },
+    })
 })
 ```
 
 For more detailed control, function also can be defined:
+
 ```lua
 cmp.cmdline.setup('@', {
     sources = cmp.config.sources({
@@ -61,12 +63,13 @@ cmp.cmdline.setup('@', {
                 end
             }
         },
-        { namae = 'path' }
-    },
+        { name = 'path' }
+    })
 })
 ```
 
 Arguments:
+
 1. `context` (`cmd.Context`): See: [context.lua](https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/context.lua) in [nvim-cmp].  
    you can get `bufnr`, `filetype` ...etc.
 2. `completion_type` (`string`): See: `:help getcompletion()`
@@ -118,7 +121,6 @@ cmp.setup.cmdline('@', {
     },
 })
 ```
-
 
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp "hrsh7th/nvim-cmp: A completion plugin for neovim coded in Lua."
 [lspkind]: https://github.com/onsails/lspkind.nvim "onsails/lspkind.nvim: vscode-like pictograms for neovim lsp completion items"
