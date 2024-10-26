@@ -105,7 +105,7 @@ cmp.setup.cmdline('@', {
     formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
-            local item = entry:get_completion_item()
+            local item = entry.completion_item
             if entry.source.name == 'cmdline-prompt' then
                 vim_item.kind = cmp.lsp.CompletionItemKind[item.kind]
                 local kind = lspkind.cmp_format({ mode = 'symbol_text' })(entry, vim_item)
